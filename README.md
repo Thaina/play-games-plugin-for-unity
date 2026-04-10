@@ -1,6 +1,7 @@
 ## Fork for fix auto-initialize and auto-authorize on startup
 
-Now initialization takes place only before the first authorization..
+Now initialization takes place only before the first authorization.
+
 Issue: https://github.com/playgameservices/play-games-plugin-for-unity/issues/3225
 
 ```json
