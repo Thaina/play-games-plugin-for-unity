@@ -627,8 +627,6 @@ namespace GooglePlayGames.Editor
 
             SetAndroidAttributeOrRemoveIfNoValue(xmlDoc,nsmgr,"com.google.android.gms.games.WEB_CLIENT_ID",GPGSProjectSettings.Instance.Get(GPGSUtil.WEBCLIENTIDKEY),false);
 
-            Debug.Log("TestInit");
-
             if(SetAndroidAttributeOrRemoveIfNoValue(xmlDoc,nsmgr,"com.google.android.gms.nearby.connection.SERVICE_ID",GPGSProjectSettings.Instance.Get(GPGSUtil.SERVICEIDKEY),false))
             {
                 foreach(var permission in new[]{ "BLUETOOTH","BLUETOOTH_ADMIN","ACCESS_WIFI_STATE","CHANGE_WIFI_STATE","ACCESS_COARSE_LOCATION" })
