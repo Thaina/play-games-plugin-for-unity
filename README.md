@@ -1,3 +1,18 @@
+## Fork for fix auto-initialize on startup
+
+Now initialization takes place only before the first authorization..
+Issue: https://github.com/playgameservices/play-games-plugin-for-unity/issues/3225
+
+```json
+{
+  "dependencies": {
+    "com.google.external-dependency-manager": "https://github.com/googlesamples/unity-jar-resolver.git?path=upm",
+    "com.google.play.games": "https://github.com/AlexZonov/play-games-plugin-for-unity.git?path=/Assets/Public/GooglePlayGames/com.google.play.games#v2.1.0-no-auto-init",
+    ...
+  }
+}
+```
+
 ## Fork for upgrade package and making UPM compatiable
 
 ```json
