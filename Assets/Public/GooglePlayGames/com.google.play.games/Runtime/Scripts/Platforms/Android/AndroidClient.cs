@@ -39,7 +39,7 @@ namespace GooglePlayGames.Android
 
         private readonly object GameServicesLock = new object();
         private readonly object AuthStateLock = new object();
-        private const string PlayGamesSdkClassName = "com.google.android.gms.games.PlayGamesSdk";
+        private const string InitializerClassName = "com.google.games.bridge.Initializer";
 
         private volatile ISavedGameClient mSavedGameClient;
         private volatile IEventsClient mEventsClient;
@@ -60,12 +60,23 @@ namespace GooglePlayGames.Android
         internal AndroidClient()
         {
             PlayGamesHelperObject.CreateObject();
-            InitializeSdk();
         }
 
-        private static void InitializeSdk() {
-            using (var playGamesSdkClass = new AndroidJavaClass(PlayGamesSdkClassName)) {
-                playGamesSdkClass.CallStatic("initialize", AndroidHelperFragment.GetActivity());
+        private bool IsInitialized
+        {
+            get
+            {
+                using (var initializerClass = new AndroidJavaClass(InitializerClassName))
+                {
+                    return initializerClass.CallStatic<bool>("isInitialized");
+                }
+            }
+        }
+
+        private void InitializeSdk()
+        {
+            using (var initializerClass = new AndroidJavaClass(InitializerClassName)) {
+                initializerClass.CallStatic("initialize", AndroidHelperFragment.GetActivity());
             }
         }
 
@@ -81,6 +92,11 @@ namespace GooglePlayGames.Android
 
         private void Authenticate(bool isAutoSignIn, Action<SignInStatus> callback)
         {
+            if (!IsInitialized)
+            {
+                InitializeSdk();
+            }
+
             callback = AsOnGameThreadCallback(callback);
             lock (AuthStateLock)
             {
